@@ -13,10 +13,6 @@ const config = {
     db: process.env.MONGO_DB,
   },
   authJwtSecret: process.env.AUTH_JWT_SECRET,
-  defaultAdminPassword: process.env.DEFAULT_ADMIN_PASSWORD,
-  defaultUserPassword: process.env.DEFAULT_USER_PASSWORD,
-  publicApiKeyToken: process.env.PUBLIC_API_KEY_TOKEN,
-  adminApiKeyToken: process.env.ADMIN_API_KEY_TOKEN,
 }
 
 module.exports = { config }

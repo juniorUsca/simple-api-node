@@ -12,15 +12,14 @@ const UserRepository = new MongoUserRepository()
 const ApiKeyRepository = new MongoApiKeyRepository()
 
 /**
- * @param {import('express').Request} req
+ * @param {import('express').Request} _
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-const testAuth = async (req, res, next) => {
+const testAuth = async (_, res, next) => {
   try {
     const query = getAllUsers({ UserRepository })
     const users = await query()
-    console.log('user!!', req.user)
     res.status(200).json({
       data: users,
       message: 'Users listed',
