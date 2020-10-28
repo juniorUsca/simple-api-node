@@ -25,6 +25,7 @@ const errorHandler = (
       debug('[error]', err) // print with stack
     } else {
       log(`[error ${status}]`, message)
+      console.log(err)
     }
   } else { // production
     format = err.format || 'production'

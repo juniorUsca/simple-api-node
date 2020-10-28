@@ -1,3 +1,4 @@
+// const passport = require('passport')
 const express = require('express')
 const helmet = require('helmet')
 const morgan = require('morgan')
@@ -13,6 +14,7 @@ const authApi = require('./routes/auth')
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+// app.use(passport.initialize())
 app.use(helmet())
 // app.use(express.static(path.resole(__dirname, 'build')))
 

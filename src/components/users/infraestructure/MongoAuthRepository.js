@@ -1,9 +1,9 @@
 const MongoLib = require('../../../lib/mongo')
 
-class MongoUserRepository { // implement an interface
+class MongoAuthRepository { // implement an interface
   constructor () {
     // super()
-    this.collection = 'user'
+    this.collection = 'auth'
     this.mongoDB = new MongoLib()
   }
 
@@ -20,14 +20,9 @@ class MongoUserRepository { // implement an interface
     return this.mongoDB.delete(this.collection, id)
   }
 
-  async getById ({ id }) {
-    return await this.mongoDB.get(this.collection, id)
-  }
-
-  async getAll () {
-    const query = null
-    return this.mongoDB.getAll(this.collection, query)
+  async getByEmail ({ email }) {
+    return await this.mongoDB.get(this.collection, null, { email })
   }
 }
 
-module.exports = MongoUserRepository
+module.exports = MongoAuthRepository

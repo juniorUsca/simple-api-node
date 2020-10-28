@@ -17,16 +17,27 @@ class MongoLib {
    */
   async connect () {
     if (!MongoLib.connection) {
-      try {
+      MongoLib.connection = (async () => {
         await this.client.connect()
         console.log('connected succesfully to mongo')
-        MongoLib.connection = this.client.db(this.dbName)
-      } catch (e) {
-        MongoLib.connection = null
-        // console.log('error connecting to database', e)
-        throw e
-      }
+        return this.client.db(this.dbName)
+      })() // return a promise execution to all dependent wait one time
     }
+
+    // its the same above but using promises
+    // if (!MongoLib.connection) {
+    //   MongoLib.connection = new Promise((resolve, reject) => {
+    //     console.log('executing promise')
+    //     this.client.connect(err => {
+    //       if (err) {
+    //         reject(err)
+    //       }
+    //       console.log('Connected succesfully to mongo')
+    //       resolve(this.client.db(this.dbName))
+    //     })
+    //   })
+    // }
+
     return MongoLib.connection
   }
 
@@ -35,9 +46,10 @@ class MongoLib {
     return db.collection(collection).find(query).toArray()
   }
 
-  async get (collection, id) {
+  async get (collection, id, query = null) {
     const db = await this.connect()
-    return db.collection(collection).findOne({ _id: ObjectId(id) })
+    query = query || { _id: ObjectId(id) }
+    return db.collection(collection).findOne(query)
   }
 
   async create (collection, data) {
